@@ -22,7 +22,7 @@ private
 
 def connect_to_s3
   Base.establish_connection!(
-    :access_key_id     => 'AKIAJ3R5C5IX2UYKYTEA',
-    :secret_access_key => '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'
+    :access_key_id     => '',
+    :secret_access_key => ''
   )
 end
