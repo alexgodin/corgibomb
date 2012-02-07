@@ -10,8 +10,8 @@ get '/bomb/:count' do |count|
   number_of_pictures_to_return = [corgis.count, count.to_i].min
 
   random_corgis = corgis.shuffle![1..number_of_pictures_to_return]
-  corgi_urls = random_corgis.map(&:url)
-  corgi_urls.to_json
+
+  random_corgis.map(&:url).to_json
 end
 
 get '/random' do
