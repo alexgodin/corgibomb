@@ -5,17 +5,17 @@ require 'json'
 include AWS::S3
 
 get '/bomb/:count' do |count|
-  connect_to_s3
-  corgis = Bucket.objects('Corgi')
-  randomcorgis = corgis.shuffle![1..[corgis.count,count.to_i].min]
-  corgi_urls = randomcorgis.map {|corgi| corgi.url}
+  corgis = all_corgis
+
+  number_of_pictures_to_return = [corgis.count, count.to_i].min
+
+  random_corgis = corgis.shuffle![1..number_of_pictures_to_return]
+  corgi_urls = random_corgis.map(&:url)
   corgi_urls.to_json
 end
 
 get '/random' do
-  connect_to_s3
-  corgis = Bucket.objects('Corgi')
-  randomcorgis = corgis[rand(corgis.count)].url
+  all_corgis.sample.url
 end
 
 private
@@ -25,4 +25,9 @@ def connect_to_s3
     :access_key_id     => '',
     :secret_access_key => ''
   )
+end
+
+def all_corgis
+  connect_to_s3
+  Bucket.objects('Corgi')
 end
