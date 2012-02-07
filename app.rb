@@ -20,14 +20,14 @@ end
 
 private
 
+def all_corgis
+  connect_to_s3
+  Bucket.objects('Corgi')
+end
+
 def connect_to_s3
   Base.establish_connection!(
     :access_key_id     => '',
     :secret_access_key => ''
   )
-end
-
-def all_corgis
-  connect_to_s3
-  Bucket.objects('Corgi')
 end
